@@ -1,62 +1,44 @@
 const menuListEl = document.querySelector(".menulist");
 const barEl = document.querySelector(".fa-bars");
 
-menuListEl.style.maxHeight = "0px";
+const sliderEl = document.querySelectorAll(".slide")
+const PrevEl = document.querySelector(".arrow-left");
+const nextEl = document.querySelector(".arrow-right");
+let currentnum = 0;
 
-barEl.addEventListener("click", () => {
-    menutoggle()
+PrevEl.addEventListener("click", () => {
+    previmage()
 })
 
-function menutoggle() {
-if (menuListEl.style.maxHeight == "0px") {
-    menuListEl.style.maxHeight = "100vh";
+nextEl.addEventListener("click", () => {
+    nextimage()
+})
 
-} else {
-    menuListEl.style.maxHeight = "0px";
+function reset() {
+    for (i = 0; i < sliderEl.length; i++) {
+        sliderEl[i].classList.remove("active");
+    }
+};
+
+function nextimage() {
+ reset();
+
+    if (currentnum === sliderEl.length - 1) {
+        currentnum = -1;
+    } 
+        sliderEl[currentnum + 1].classList.add("active");
+        currentnum++;
+   
+} 
+
+
+function previmage() {
+    reset();
+    if (currentnum === 0) {
+        currentnum = sliderEl.length;
+    } 
+    sliderEl[currentnum - 1].classList.add("active");
+    currentnum--;
 }
 
-}
-
-//owl carousel Jquery for home
-
-// $('.owl-carousel').owlCarousel({
-//     loop:true,
-//     margin:0,
-//     nav:true,
-//     dots: false,
-//     navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
-//     responsive:{
-//         0:{
-//             items:1
-//         },
-//         768:{
-//             items:1
-//         },
-//         1000:{
-//             items:1
-//         }
-//     }
-// })
-
-
-//owl carousel Jquery for Rooms
-
-// $('.owl-carousel').owlCarousel({
-//     loop: true,
-//     margin: 40,
-//     nav: true,
-//     dots: false,
-//     navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
-//     responsive:{
-//         0:{
-//             items:1
-//         },
-//         768:{
-//             items:2,
-//             margin: 10,
-//         },
-//         1000:{
-//             items:3
-//         }
-//     }
-// })
+setInterval(nextimage, 3000);
